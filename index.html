@@ -41,7 +41,8 @@
 
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 0; }
 
-    .nav { position: sticky; top: 0; background: rgba(255,255,255,.85); backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid var(--line); }
+    /* ===== NAV ===== */
+    .nav { position: sticky; top: 0; background: rgba(255,255,255,.92); backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid var(--line); z-index: 50; }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; padding: 0 20px; }
     .brand { font-family: 'Space Grotesk', Inter, system-ui; font-weight: 800; letter-spacing: -0.02em; font-size: 22px; color: var(--text); text-decoration: none; }
     .right { display: flex; align-items: center; gap: 18px; }
@@ -52,6 +53,14 @@
     .btn.solid { background: var(--accent); color: #fff; border-color: var(--accent); }
     .btn.outline { background: #fff; color: var(--text); }
 
+    /* Mobile nav toggle */
+    .mobile-toggle { display: none; border: 1px solid var(--line); background:#fff; border-radius:10px; padding:8px 10px; }
+    .mobile-toggle span { display:block; width:20px; height:2px; background:var(--text); margin:4px 0; }
+    .mobile-menu { display:none; border-top:1px solid var(--line); background:#fff; }
+    .mobile-menu-inner { padding:12px 20px; display:grid; gap:10px; }
+    .mobile-menu a { color: var(--text); font-weight:600; }
+
+    /* ===== HERO ===== */
     .hero { padding: 64px 20px 26px; text-align: left; }
     .hero-inner { max-width: var(--hero-max); margin-left:0; }
     .eyebrow { color: var(--muted); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
@@ -59,30 +68,54 @@
     .subtitle { color: #374151; font-size: clamp(16px, 2.2vw, 20px); max-width: 60ch; }
     .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
 
+    /* ===== INFO STRIP ===== */
     .info-strip { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    @media (max-width: 900px) { .info-strip { grid-template-columns: 1fr; } }
     .info { background: #fafafa; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); text-align:left; }
     .info strong { display: block; margin-bottom: 4px; }
     .muted { color: var(--muted); }
 
+    /* ===== SECTIONS ===== */
     section { padding: 26px 20px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items:start; text-align:left; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items:start; text-align:left; }
-    @media (max-width: 900px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } }
     .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); text-align:left; }
     .card h3 { margin: 6px 0 8px; font-size: 18px; }
     .card p { margin: 0; color: #4b5563; }
     .list { margin: 0; padding-left: 18px; }
     .list li { margin: 6px 0; }
-
     .cta-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #fafafa; text-align:left; }
 
     footer { margin-top: 60px; border-top: 1px solid var(--line); }
     .foot-inner { padding: 22px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); }
     .links { display: inline-flex; gap: 16px; }
+
+    /* ====== MOBILE BREAKPOINTS (<= 900px keeps desktop look but stacks content) ====== */
+    @media (max-width: 900px) {
+      .nav-inner { padding: 0 16px; }
+      .right { gap: 10px; }
+      /* Hide desktop links / show hamburger */
+      .nav-links, .right .btn.outline { display: none; }
+      .mobile-toggle { display: inline-block; }
+
+      .hero { padding: 44px 16px 18px; }
+      .hero-inner { max-width: 100%; }
+      .title { font-size: clamp(32px, 8vw, 42px); }
+      .subtitle { font-size: 16px; }
+      .hero-cta .btn { width: 100%; justify-content: center; }
+
+      .info-strip { grid-template-columns: 1fr; }
+
+      section { padding: 22px 16px; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .cta-bar { align-items: stretch; }
+      .cta-bar .btn { width: 100%; justify-content: center; }
+
+      .foot-inner { padding: 18px 16px; flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
   </style>
 </head>
 <body>
+  <!-- NAV -->
   <div class="nav">
     <div class="nav-inner">
       <a class="brand" href="#">drift</a>
@@ -93,10 +126,22 @@
         </div>
         <a class="btn outline" href="mailto:august1742@gmail.com?subject=Drift%20Questions">Contact</a>
         <a class="btn solid" href="mailto:august1742@gmail.com?subject=Join%20the%20Drift%20waitlist">Join waitlist</a>
+        <button class="mobile-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <div class="mobile-menu-inner">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="mailto:august1742@gmail.com?subject=Drift%20Questions">Contact</a>
+        <a href="mailto:august1742@gmail.com?subject=Join%20the%20Drift%20waitlist">Join waitlist</a>
       </div>
     </div>
   </div>
 
+  <!-- HERO -->
   <header class="container hero" id="about">
     <div class="hero-inner">
       <div class="eyebrow">Practice • Small Talk • Networking</div>
@@ -114,6 +159,7 @@
     </div>
   </header>
 
+  <!-- FEATURES -->
   <section id="features">
     <div class="container">
       <div class="grid-3">
@@ -133,6 +179,7 @@
     </div>
   </section>
 
+  <!-- HOW & WHO -->
   <section id="how">
     <div class="container">
       <div class="grid-2">
@@ -156,6 +203,7 @@
     </div>
   </section>
 
+  <!-- PRIVACY & CTA -->
   <section id="privacy">
     <div class="container">
       <div class="card" style="margin-bottom:18px;">
@@ -175,6 +223,7 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <div class="container foot-inner">
       <span>© <span id="year"></span> Drift</span>
@@ -185,7 +234,20 @@
   </footer>
 
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const toggle = document.querySelector('.mobile-toggle');
+    const menu = document.getElementById('mobile-menu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        menu.hidden = expanded;
+        menu.style.display = expanded ? 'none' : 'block';
+      });
+    }
   </script>
 </body>
 </html>
