@@ -8,7 +8,6 @@
   <meta property="og:title" content="Drift — Practice Small Talk & Networking" />
   <meta property="og:description" content="Simulate real conversations and get real‑time tone feedback (Hume‑powered)." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/og-image.png" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,14 +15,15 @@
   <style>
     :root {
       --bg: #0b1020;      /* deep slate */
-      --panel: #11162a;   /* card */
+      --panel: #0f1430;   /* card */
       --text: #e6eaf3;    /* primary text */
       --muted: #9aa6bf;   /* secondary text */
-      --accent: #6aa9ff;  /* primary accent */
-      --accent-2: #7df1cf;/* secondary accent */
+      --accent: #7df1cf;  /* primary accent */
+      --accent-2: #6aa9ff;/* secondary accent */
       --ring: rgba(122, 241, 207, 0.35);
       --radius: 18px;
       --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+      --maxw: 1000px;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -39,10 +39,10 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    a { color: var(--accent); text-decoration: none; }
+    a { color: var(--accent-2); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 80px; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 28px 20px 80px; }
 
     /* Header */
     .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -53,58 +53,43 @@
       color: #0b1020; font-weight: 800; letter-spacing: .5px; box-shadow: var(--shadow);
     }
     .brand-name { font-weight: 700; letter-spacing: .3px; font-size: 18px; color: var(--text); }
-    .nav-cta { display: inline-flex; gap: 10px; }
+    .nav-cta { display: inline-flex; gap: 10px; flex-wrap: wrap; }
     .btn {
-      --btn-bg: #1a2140; --btn-fg: var(--text);
-      display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,.08);
+      --btn-bg: #141a38; --btn-fg: var(--text);
+      display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,.10);
       background: var(--btn-bg); color: var(--btn-fg); padding: 10px 14px; border-radius: 999px; font-weight: 600;
       box-shadow: var(--shadow); transition: transform .12s ease, box-shadow .12s ease, background .2s ease;
     }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(0,0,0,.45); text-decoration: none; }
     .btn.primary { --btn-bg: linear-gradient(135deg, var(--accent), var(--accent-2)); --btn-fg: #0b1020; border-color: transparent; }
 
-    /* Hero */
-    .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; padding: 48px 0 22px; }
-    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; padding-top: 28px; } }
-    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-weight: 600; letter-spacing: .4px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); padding: 6px 10px; border-radius: 999px; }
-    .title { font-size: clamp(30px, 6vw, 54px); line-height: 1.05; margin: 14px 0 10px; font-weight: 800; }
-    .subtitle { color: var(--muted); font-size: clamp(16px, 2.4vw, 20px); max-width: 56ch; }
-    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
-
-    /* Card */
+    /* Sections */
+    section { margin-top: 42px; }
     .card {
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border: 1px solid rgba(255,255,255,.10); border-radius: var(--radius);
-      padding: 18px; box-shadow: var(--shadow);
+      padding: 22px; box-shadow: var(--shadow);
     }
+    .title { font-size: clamp(30px, 6vw, 54px); line-height: 1.05; margin: 14px 0 10px; font-weight: 800; }
+    .subtitle { color: var(--muted); font-size: clamp(16px, 2.4vw, 20px); max-width: 70ch; }
 
-    /* Feature Grid */
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 30px; }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-    .feat h3 { margin: 6px 0 6px; font-size: 18px; }
-    .feat p { margin: 0; color: var(--muted); }
+    .hero { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: start; padding: 38px 0 10px; }
 
-    /* How it works */
-    .how { margin-top: 54px; }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    @media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
-    .step-num { font-weight: 800; color: var(--accent); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
 
-    /* Footer */
+    .list { margin: 0; padding-left: 18px; }
+    .list li { margin: 6px 0; }
+
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+    @media (max-width: 900px) { .kpis { grid-template-columns: 1fr; } }
+    .kpi { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 14px; text-align: center; }
+    .kpi strong { display: block; font-size: 22px; }
+    .muted { color: var(--muted); }
+
     footer { margin-top: 60px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.08); color: var(--muted); font-size: 14px; }
     .foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .links { display: inline-flex; gap: 16px; }
-
-    /* Simple "mock" phone panel */
-    .phone { aspect-ratio: 9/16; border-radius: 28px; background: radial-gradient(100% 80% at 30% 20%, rgba(122,241,207,.14), transparent 50%), #0f1430; border: 1px solid rgba(255,255,255,.10); box-shadow: 0 30px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.06); position: relative; overflow: hidden; }
-    .wave { position: absolute; inset: auto 0 0 0; height: 40%; opacity: .8; filter: blur(1px); background:
-      radial-gradient(120% 60% at 50% 100%, rgba(106,169,255,.18), transparent 60%),
-      repeating-conic-gradient(from 0deg, rgba(255,255,255,.05) 0 10deg, transparent 10deg 20deg);
-    }
-    .pill { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 42%; height: 8px; border-radius: 999px; background: rgba(255,255,255,.08); }
-    .meter { position: absolute; left: 16px; right: 16px; bottom: 16px; display: grid; gap: 8px; }
-    .meter .bar { height: 8px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; box-shadow: 0 0 0 6px rgba(122,241,207,.08); }
-    .meter small { color: var(--muted); }
   </style>
 </head>
 <body>
@@ -115,79 +100,90 @@
         <span class="brand-name">Drift</span>
       </a>
       <div class="nav-cta">
+        <a class="btn" href="#about">About</a>
         <a class="btn" href="#how">How it works</a>
-        <a class="btn primary" href="mailto:founder@yourdomain.com?subject=Drift%20Waitlist">Join waitlist</a>
+        <a class="btn" href="#privacy">Privacy</a>
+        <a class="btn primary" href="mailto:august1742@gmail.com?subject=Drift%20Waitlist">Join waitlist</a>
       </div>
     </header>
 
     <main>
-      <section class="hero">
-        <div>
-          <span class="eyebrow">Practice • Small Talk • Networking</span>
-          <h1 class="title">Get better at conversations—with real‑time tone feedback.</h1>
-          <p class="subtitle">Drift simulates social and networking scenarios so you can practice safely—and get instant insights on your vocal tone and emotion cues, powered by Hume.</p>
-          <div class="hero-cta">
-            <a class="btn primary" href="mailto:founder@yourdomain.com?subject=Drift%20Beta%20Access">Request beta access</a>
-            <a class="btn" href="#features">See features</a>
-          </div>
-        </div>
+      <!-- HERO: crisp info, no mock images -->
+      <section class="hero" id="about">
         <div class="card">
-          <div class="phone" role="img" aria-label="App mockup with tone meter">
-            <div class="pill"></div>
-            <div class="wave"></div>
-            <div class="meter">
-              <div class="bar" style="width: 68%"></div>
-              <small>Live tone confidence</small>
-            </div>
+          <h1 class="title">Practice conversations. Get better, faster.</h1>
+          <p class="subtitle">Drift is an AI‑guided practice space for <strong>small talk</strong> and <strong>networking</strong>. We simulate realistic social scenarios and provide <strong>real‑time tone & emotion feedback</strong> (powered by Hume) so you can improve confidence and delivery without the pressure of a live audience.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
+            <a class="btn primary" href="mailto:august1742@gmail.com?subject=Drift%20Beta%20Access">Request beta access</a>
+            <a class="btn" href="#details">See details</a>
           </div>
         </div>
       </section>
 
-      <section id="features" class="grid">
-        <div class="card feat">
-          <h3>Simulated scenarios</h3>
-          <p>Sales intros, conference chats, coffee meetups—practice without the pressure of being there.</p>
+      <!-- QUICK FACTS / INFO HEAVY -->
+      <section id="details">
+        <div class="grid-2">
+          <div class="card">
+            <h2>Who it's for</h2>
+            <ul class="list">
+              <li>Students and grads prepping for career fairs & interviews</li>
+              <li>Professionals building networking confidence</li>
+              <li>Teams training for sales, support, or client comms</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h2>What you get</h2>
+            <ul class="list">
+              <li><strong>Live tone insights</strong> — warmth, energy, clarity</li>
+              <li><strong>Scenario library</strong> — conferences, coffee chats, cold intros</li>
+              <li><strong>Actionable tips</strong> — pacing, phrasing, follow‑ups</li>
+              <li><strong>Progress tracking</strong> — see improvement over sessions</li>
+            </ul>
+          </div>
         </div>
-        <div class="card feat">
-          <h3>Real‑time feedback</h3>
-          <p>Immediate insight on warmth, energy, and confidence using Hume’s Empathic Voice Interface.</p>
+
+        <div class="grid-2" style="margin-top:18px;">
+          <div class="card">
+            <h2 id="how">How it works</h2>
+            <ol class="list">
+              <li>Pick a scenario you want to practice</li>
+              <li>Speak naturally — Drift analyzes your vocal cues</li>
+              <li>Get immediate feedback and retry with targeted cues</li>
+            </ol>
+          </div>
+          <div class="card">
+            <h2>Roadmap</h2>
+            <ul class="list">
+              <li>Personalized coaching goals</li>
+              <li>Shareable practice summaries</li>
+              <li>Team & classroom modes</li>
+            </ul>
+          </div>
         </div>
-        <div class="card feat">
-          <h3>Personalized tips</h3>
-          <p>Actionable nudges to adjust pace, tone, and phrasing so conversations feel natural.</p>
+
+        <div class="kpis">
+          <div class="kpi"><strong>Realistic</strong><span class="muted">Scenario dialogue</span></div>
+          <div class="kpi"><strong>Real‑time</strong><span class="muted">Tone feedback</span></div>
+          <div class="kpi"><strong>Private</strong><span class="muted">You control data</span></div>
         </div>
       </section>
 
-      <section id="how" class="how">
+      <!-- PRIVACY / DATA USAGE -->
+      <section id="privacy">
         <div class="card">
-          <h2>How it works</h2>
-          <div class="steps">
-            <div>
-              <div class="step-num">1</div>
-              <h3>Pick a scenario</h3>
-              <p>Select networking or small‑talk situations you want to practice.</p>
-            </div>
-            <div>
-              <div class="step-num">2</div>
-              <h3>Speak naturally</h3>
-              <p>Talk to Drift like you would to a person. We listen only to improve your delivery.</p>
-            </div>
-            <div>
-              <div class="step-num">3</div>
-              <h3>Improve fast</h3>
-              <p>Get tone feedback and specific suggestions in seconds, then try again.</p>
-            </div>
-          </div>
+          <h2>Privacy & data use</h2>
+          <p class="muted">We use voice data <em>only</em> to generate feedback for you. No selling data. You can delete sessions any time. More details in our Privacy Policy when we launch.</p>
         </div>
       </section>
 
-      <section class="how" aria-label="Call to action">
+      <!-- CONTACT / CTA -->
+      <section aria-label="Call to action">
         <div class="card" style="text-align:center">
-          <h2>Launching soon</h2>
-          <p class="subtitle" style="margin: 0 auto 14px;">Want early access for your team or class? Join the waitlist and we’ll reach out.</p>
-          <div class="hero-cta" style="justify-content:center">
-            <a class="btn primary" href="mailto:founder@yourdomain.com?subject=Join%20the%20Drift%20waitlist">Join the waitlist</a>
-            <a class="btn" href="mailto:founder@yourdomain.com?subject=Partnerships">Partnerships</a>
+          <h2>Want early access?</h2>
+          <p class="subtitle" style="margin: 0 auto 14px;">We’re inviting a small group for testing. If you’re interested in piloting Drift for a class or team, reach out.</p>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <a class="btn primary" href="mailto:august1742@gmail.com?subject=Join%20the%20Drift%20waitlist">Join the waitlist</a>
+            <a class="btn" href="mailto:august1742@gmail.com?subject=Partnerships">Partnerships</a>
           </div>
         </div>
       </section>
@@ -199,7 +195,7 @@
         <div class="links">
           <a href="#" onclick="alert('Add your privacy policy URL'); return false;">Privacy</a>
           <a href="#" onclick="alert('Add your terms URL'); return false;">Terms</a>
-          <a href="mailto:founder@yourdomain.com">Contact</a>
+          <a href="mailto:august1742@gmail.com">Contact</a>
         </div>
       </div>
     </footer>
@@ -207,8 +203,6 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    // If you set up a custom domain on GitHub Pages, add a CNAME file with your domain.
-    // Optional analytics (Plausible/Umami) can be added here later.
   </script>
 </body>
 </html>
