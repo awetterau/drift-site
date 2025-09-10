@@ -11,10 +11,9 @@
   <meta name="theme-color" content="#111111" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Light, warm, startup-y */
       --bg: #ffffff;
       --text: #111111;      /* warm near-black */
       --muted: #6b7280;     /* gray-500 */
@@ -22,11 +21,11 @@
       --card: #ffffff;
       --shadow: 0 8px 30px rgba(17, 17, 17, 0.06);
       --radius: 14px;
-      /* Accents */
-      --accent: #111827;       /* gray-900 for solid buttons */
+      --accent: #111827;       /* gray-900 */
       --accent-2: #2563eb;     /* blue */
       --accent-3: #f97316;     /* warm orange */
       --maxw: 1080px;
+      --hero-max: 780px;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -40,71 +39,75 @@
     a { color: var(--accent-2); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 28px 20px 80px; }
+    /* ===== LAYOUT ===== */
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-    /* ===== NAV ===== */
-    .nav { position: sticky; top: 0; background: rgba(255,255,255,.8); backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid var(--line); }
-    .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    /* ===== NAV (links on the right) ===== */
+    .nav { position: sticky; top: 0; background: rgba(255,255,255,.85); backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid var(--line); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
     .brand { font-family: 'Space Grotesk', Inter, system-ui; font-weight: 800; letter-spacing: -0.02em; font-size: 22px; color: var(--text); text-decoration: none; }
+    .right { display: flex; align-items: center; gap: 18px; }
     .nav-links { display: flex; gap: 18px; align-items: center; }
     .nav-links a { color: var(--text); font-weight: 600; }
-    .nav-cta { display: flex; gap: 10px; }
     .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); font-weight: 600; color: var(--text); background: #fff; box-shadow: var(--shadow); }
     .btn:hover { text-decoration: none; transform: translateY(-1px); box-shadow: 0 10px 32px rgba(0,0,0,.08); }
     .btn.solid { background: var(--accent); color: #fff; border-color: var(--accent); }
     .btn.outline { background: #fff; color: var(--text); }
 
-    /* ===== HERO ===== */
-    .hero { max-width: var(--maxw); margin: 0 auto; padding: 64px 20px 22px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; }
-    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; padding-top: 40px; } }
+    /* ===== HERO (single-column, centered) ===== */
+    .hero { padding: 64px 0 26px; text-align: left; }
+    .hero-inner { max-width: var(--hero-max); }
     .eyebrow { color: var(--muted); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
-    .title { font-family: 'Space Grotesk', Inter, system-ui; font-weight: 800; letter-spacing: -0.02em; font-size: clamp(36px, 7vw, 60px); line-height: 1.04; margin: 8px 0 12px; }
+    .title { font-family: 'Space Grotesk', Inter, system-ui; font-weight: 800; letter-spacing: -0.02em; font-size: clamp(38px, 7vw, 64px); line-height: 1.04; margin: 10px 0 12px; }
     .subtitle { color: #374151; font-size: clamp(16px, 2.2vw, 20px); max-width: 60ch; }
     .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
 
-    /* ===== SECTIONS ===== */
-    section { padding: 10px 20px; }
-    .section-inner { max-width: var(--maxw); margin: 0 auto; }
+    /* ===== INFO STRIP (replaces small middle card) ===== */
+    .info-strip { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 900px) { .info-strip { grid-template-columns: 1fr; } }
+    .info { background: #fafafa; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }
+    .info strong { display: block; margin-bottom: 4px; }
+    .muted { color: var(--muted); }
 
+    /* ===== SECTIONS ===== */
+    section { padding: 26px 0; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     @media (max-width: 900px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } }
-
     .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
     .card h3 { margin: 6px 0 8px; font-size: 18px; }
     .card p { margin: 0; color: #4b5563; }
-
     .list { margin: 0; padding-left: 18px; }
     .list li { margin: 6px 0; }
 
     .cta-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #fafafa; }
 
     footer { margin-top: 60px; border-top: 1px solid var(--line); }
-    .foot-inner { max-width: var(--maxw); margin: 0 auto; padding: 22px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); }
+    .foot-inner { padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); }
     .links { display: inline-flex; gap: 16px; }
   </style>
 </head>
 <body>
   <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-inner">
+  <div class="nav">
+    <div class="container nav-inner">
       <a class="brand" href="#">drift</a>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#how">How it works</a>
-        <a href="#privacy">Privacy</a>
-      </div>
-      <div class="nav-cta">
+      <div class="right">
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <a href="#privacy">Privacy</a>
+        </div>
         <a class="btn outline" href="mailto:august1742@gmail.com?subject=Drift%20Questions">Contact</a>
         <a class="btn solid" href="mailto:august1742@gmail.com?subject=Join%20the%20Drift%20waitlist">Join waitlist</a>
       </div>
     </div>
-  </nav>
+  </div>
 
   <!-- HERO -->
-  <header class="hero" id="about">
-    <div>
+  <header class="container hero" id="about">
+    <div class="hero-inner">
       <div class="eyebrow">Practice • Small Talk • Networking</div>
       <h1 class="title">Get better at conversations with real‑time tone feedback.</h1>
       <p class="subtitle">Drift lets you rehearse realistic social and networking scenarios and receive instant insights on warmth, energy, and clarity—powered by Hume’s empathic voice tech.</p>
@@ -112,24 +115,21 @@
         <a class="btn solid" href="mailto:august1742@gmail.com?subject=Drift%20Beta%20Access">Request beta access</a>
         <a class="btn outline" href="#features">Explore features</a>
       </div>
-    </div>
-    <div class="card">
-      <h3 style="margin:0 0 6px;">What is Drift?</h3>
-      <p style="margin:0;">A focused practice space to improve everyday conversations—without the pressure of being there live.</p>
-      <ul class="list" style="margin-top:12px;">
-        <li>Simulated scenarios: conference intros, coffee chats, cold outreach</li>
-        <li>Real‑time tone & emotion feedback (Hume)</li>
-        <li>Actionable suggestions and quick retries</li>
-      </ul>
+      <!-- Clean info strip instead of a small floating card -->
+      <div class="info-strip">
+        <div class="info"><strong>Simulated scenarios</strong><span class="muted">Conference intros, coffee chats, cold outreach</span></div>
+        <div class="info"><strong>Real‑time feedback</strong><span class="muted">Tone & emotion cues via Hume</span></div>
+        <div class="info"><strong>Faster improvement</strong><span class="muted">Actionable suggestions with quick retries</span></div>
+      </div>
     </div>
   </header>
 
   <!-- FEATURES -->
   <section id="features">
-    <div class="section-inner">
+    <div class="container">
       <div class="grid-3">
         <div class="card">
-          <h3>Simulated scenarios</h3>
+          <h3>Scenario library</h3>
           <p>Practice the moments that matter—networking, interviews, sales intros—safely and on your schedule.</p>
         </div>
         <div class="card">
@@ -146,7 +146,7 @@
 
   <!-- HOW IT WORKS + WHO IT'S FOR -->
   <section id="how">
-    <div class="section-inner">
+    <div class="container">
       <div class="grid-2">
         <div class="card">
           <h3>How it works</h3>
@@ -170,7 +170,7 @@
 
   <!-- PRIVACY + CTA BAR -->
   <section id="privacy">
-    <div class="section-inner">
+    <div class="container">
       <div class="card" style="margin-bottom:18px;">
         <h3>Privacy & data use</h3>
         <p>We use voice data only to provide feedback for you. You can delete sessions at any time. We do not sell your data. Full policy will be published at launch.</p>
@@ -178,7 +178,7 @@
       <div class="cta-bar">
         <div>
           <strong>Interested in piloting Drift for a team or class?</strong>
-          <div class="muted">We’re opening a limited early-access cohort.</div>
+          <div class="muted">We’re opening a limited early‑access cohort.</div>
         </div>
         <div style="display:flex; gap:10px;">
           <a class="btn outline" href="mailto:august1742@gmail.com?subject=Partnerships">Partnerships</a>
@@ -189,7 +189,7 @@
   </section>
 
   <footer>
-    <div class="foot-inner">
+    <div class="container foot-inner">
       <span>© <span id="year"></span> Drift</span>
       <div class="links">
         <a href="mailto:august1742@gmail.com">Contact</a>
